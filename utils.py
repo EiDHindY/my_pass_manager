@@ -1,5 +1,17 @@
+# utils.py
+
 from datetime import datetime
 import pytz
+import logging
+
+
+def logging_config():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s %(message)s]",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[logging.StreamHandler(), logging.FileHandler("app.log", mode="a")],
+    )
 
 
 def egypt_timezone() -> str:

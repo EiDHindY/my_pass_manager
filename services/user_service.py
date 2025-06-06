@@ -1,9 +1,14 @@
 # user_service.py
 
+
 from typing import Optional
 from sqlite3 import IntegrityError, Error, Cursor
 from database.db_config import db_conn
+from utils import logging_config
+import logging
 
+logging_config()
+logger = logging.getLogger(__name__)
 
 def add_user(name: str) -> Optional[int]:
     """
@@ -28,9 +33,9 @@ def add_user(name: str) -> Optional[int]:
             return cursor.lastrowid
 
     except IntegrityError:
-        print(f"[ERROR] Username '{name}' already exists.")
+        logging.error(f"[ERROR] Username '{name}' already exists.")
         return None
 
     except Error as e:
-        print(f"[ERROR] Database error occurred: {e}")
+        logging.error(f"[ERROR] Database error occurred: {e}")
         return None
